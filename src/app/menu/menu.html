@@ -1,5 +1,20 @@
 <ul class="d-flex flex-row">
-    <li class="btn btn-outline-primary" routerLinkActive="btn-primary" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">All</a></li>
-    <li class="btn btn-outline-primary" routerLinkActive="btn-primary"><a routerLink="/tasks/todo">Open</a></li>
-    <li class="btn btn-outline-primary" routerLinkActive="btn-primary"><a routerLink="/tasks/done">Done</a></li>
+    <li 
+        class="btn" 
+        [ngClass]="activeFilter === 'All' ? 'btn-primary' : 'btn-outline-primary'"
+        (click)="onFilterClick('All')">
+        All
+    </li>
+    <li 
+        class="btn" 
+        [ngClass]="activeFilter === 'Open' ? 'btn-primary' : 'btn-outline-primary'"
+        (click)="onFilterClick('Open')">
+        Open
+    </li>
+    <li 
+        class="btn" 
+        [ngClass]="activeFilter === 'Done' ? 'btn-primary' : 'btn-outline-primary'"
+        (click)="onFilterClick('Done')">
+        Done
+    </li>
 </ul>

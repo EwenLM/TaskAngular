@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Tasks } from '../tasks';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formtask',
@@ -13,11 +11,14 @@ import { Router } from '@angular/router';
   templateUrl: './formtask.html',
   styleUrl: './formtask.css',
 })
-export class Formtask {
+export class Formtask implements OnInit {
 
   taskForm!: FormGroup;
+  
+  // Émet vers le composant PÈRE quand une tâche est ajoutée
+  @Output() taskAdded = new EventEmitter<string>();
 
-  constructor(private tasks: Tasks, private router: Router, private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -30,8 +31,12 @@ export class Formtask {
   }
 
   onSubmit(): void {
-    const formValue = this.taskForm.value;
-    this.tasks.addTask(formValue.nom);
-    this.router.navigate(['/']);
+    if (this.taskForm.valid) {
+      const formValue = this.taskForm.value;
+      // Émet l'événement vers le PÈRE au lieu d'appeler le service
+      this.taskAdded.emit(formValue.nom);
+      // Réinitialise le formulaire
+      this.taskForm.reset();
+    }
   }
 }

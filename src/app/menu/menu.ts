@@ -1,16 +1,21 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive  } from '@angular/router';
-
 
 @Component({
   selector: 'app-menu',
-  imports: [RouterLink, RouterLinkActive, CommonModule],
+  imports: [CommonModule],
   templateUrl: './menu.html',
   styleUrl: './menu.css',
 })
 
 export class Menu {
-  constructor() {
+  // FILS émet vers le PÈRE quand un filtre est sélectionné
+  @Output() filterChanged = new EventEmitter<string>();
+  
+  activeFilter: string = 'All';
+
+  onFilterClick(filter: string): void {
+    this.activeFilter = filter;
+    this.filterChanged.emit(filter);
   }
 }
