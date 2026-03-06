@@ -33,9 +33,7 @@ export class Formtask implements OnInit {
   onSubmit(): void {
     if (this.taskForm.valid) {
       const formValue = this.taskForm.value;
-      // Émet l'événement vers le PÈRE au lieu d'appeler le service
       this.taskAdded.emit(formValue.nom);
-      // Réinitialise le formulaire
       this.taskForm.reset();
     }
   }

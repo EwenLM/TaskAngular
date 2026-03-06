@@ -9,7 +9,6 @@ import { Task } from '../task';
   styleUrl: './task-item.css',
 })
 export class TaskItem {
-  // Reçoit la tâche du composant PÈRE
   @Input() task!: Task;
   
   // Émet vers le composant PÈRE quand la checkbox change

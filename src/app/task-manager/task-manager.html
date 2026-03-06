@@ -1,31 +1,19 @@
 <div class="container mt-4">
-    <!-- En-tête avec Menu et Formulaire -->
-    <div class="d-flex flex-row justify-content-between mb-4">
-        <!-- PÈRE écoute l'événement @Output du FILS Menu -->
-        <app-menu (filterChanged)="onFilterChanged($event)"></app-menu>
-        
-        <!-- PÈRE écoute l'événement @Output du FILS Formtask -->
-        <app-formtask (taskAdded)="onTaskAdded($event)"></app-formtask>
+
+    <div class="d-flex flex-row justify-content-center mb-4">
+
+        <app-menu class="mx-5" (filterChanged)="onFilterChanged($event)"></app-menu>
+        <app-formtask class="mx-5" (taskAdded)="onTaskAdded($event)"></app-formtask>
     </div>
 
-    <!-- Titre dynamique selon le filtre -->
     <div class="d-flex flex-column justify-content-center align-items-center">
         <h1 *ngIf="currentFilter === 'All'">Toutes les tâches</h1>
-        <h1 *ngIf="currentFilter === 'Open'">Tâches ouvertes</h1>
+        <h1 *ngIf="currentFilter === 'Open'">Tâches à faire</h1>
         <h1 *ngIf="currentFilter === 'Done'">Tâches terminées</h1>
-
-        <!-- Liste des tâches filtrées -->
-        <!-- PÈRE passe chaque tâche au FILS TaskItem via @Input
-             et écoute l'événement @Output du FILS -->
         <app-task-item 
             *ngFor="let task of getFilteredTasks()" 
             [task]="task"
             (taskToggled)="onTaskToggled($event)">
         </app-task-item>
-
-        <!-- Message si aucune tâche -->
-        <p *ngIf="getFilteredTasks().length === 0" class="text-muted mt-3">
-            Aucune tâche dans cette catégorie
-        </p>
     </div>
 </div>

@@ -15,9 +15,8 @@ import { Subscription } from 'rxjs/internal/Subscription';
 })
 export class TaskManager implements OnInit {
 
-  // Composant PÈRE : gère toutes les tâches
   allTasks: Task[] = [];
-  currentFilter: string = 'All'; // All, Open, ou Done
+  currentFilter: string = 'All';
   private mysubscription: Subscription;
 
   constructor(private tasksService: Tasks) {
@@ -45,17 +44,14 @@ export class TaskManager implements OnInit {
     return this.allTasks; // All
   }
 
-  // PÈRE reçoit l'événement du FILS Menu
   onFilterChanged(filter: string): void {
     this.currentFilter = filter;
   }
 
-  // PÈRE reçoit l'événement du FILS Formtask
   onTaskAdded(nom: string): void {
     this.tasksService.addTask(nom);
   }
 
-  // PÈRE reçoit l'événement du FILS TaskItem
   onTaskToggled(task: Task): void {
     this.tasksService.click(task);
   }
